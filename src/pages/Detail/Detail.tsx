@@ -4,7 +4,7 @@ import ProductCard from '../../components/ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { DispatchType, RootState } from '../../redux/store';
 import { getDetailProductActionApi } from '../../redux/reducers/productReducer';
-import { RelatedProduct } from '../../assets/models/ProductDetailModelType';
+import { RelatedProduct } from '../../models/ProductDetailModelType';
 
 type Props = {}
 

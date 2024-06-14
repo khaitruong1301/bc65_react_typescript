@@ -1,9 +1,35 @@
+import { RootState } from '../redux/store'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { setDataJsonStorage, setDataTextStorage } from '../util/utilMethod'
+import { ACCESS_TOKEN, USER_LOGIN } from '../util/util'
 
 type Props = {}
 
 const HeaderHome = (props: Props) => {
+    const {userLogin} = useSelector((state:RootState) => state.userReducer);
+
+    const renderLogin = () => {
+        if(userLogin){
+            return <>
+             <li className="nav-item">
+                        <NavLink className="nav-link " to="/profile" aria-current="page">Hello {userLogin.email} </NavLink>
+                    </li>
+                    <li className="nav-item">
+                       <button className='nav-link' onClick={()=>{
+                        localStorage.removeItem(ACCESS_TOKEN);
+                        localStorage.removeItem(USER_LOGIN);
+                        window.location.reload();
+                       }}>Logout</button>
+                    </li>
+            </>
+        }else {
+            return  <li className="nav-item">
+            <NavLink className="nav-link " to="/login" aria-current="page">Login </NavLink>
+        </li>
+        }
+    }
     return (
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
             <NavLink className="navbar-brand" to="/">Shoes Shop</NavLink>
@@ -13,9 +39,7 @@ const HeaderHome = (props: Props) => {
                     <li className="nav-item">
                         <NavLink className="nav-link " to="/home" aria-current="page">Home </NavLink>
                     </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/login">Login</NavLink>
-                    </li>
+                   {renderLogin()}
                     <li className="nav-item">
                         <NavLink className="nav-link" to="/register">Register</NavLink>
                     </li>

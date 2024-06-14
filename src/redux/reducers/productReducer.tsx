@@ -2,7 +2,8 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { DispatchType, GetStateMethodType } from '../store';
 import { RootState } from '@reduxjs/toolkit/query';
 import axios from 'axios';
-import { ProductDetailModelType } from '../../assets/models/ProductDetailModelType';
+import { ProductDetailModelType } from '../../models/ProductDetailModelType';
+import { httpClient } from '../../util/util';
 export interface ProductModelType {
     id:               number;
     name:             string;
@@ -49,7 +50,7 @@ export default productReducer.reducer
 export const getAllProductActionApi = () => {
     return async (dispatch:DispatchType,getState:GetStateMethodType ) => {
         //Call api
-        const res = await axios.get('https://apistore.cybersoft.edu.vn/api/Product');
+        const res = await httpClient.get('/api/Product');
         //Sau khi lấy dữ liệu từ api về thì dispatch action payload
         const action:PayloadAction<ProductModelType[]> = setArrProductAction(res.data.content);
         dispatch(action);
@@ -59,7 +60,7 @@ export const getAllProductActionApi = () => {
 export const getDetailProductActionApi = (id:string) => {
 
     return async(dispatch:DispatchType) => {
-        const res = await axios.get(`https://apistore.cybersoft.edu.vn/api/Product/getbyid?id=${id}`);
+        const res = await httpClient.get(`/api/Product/getbyid?id=${id}`);
         //Sau khi có dữ liệu từ api dùng action payload đẩy lên redux
         const action: PayloadAction<ProductDetailModelType> = setProductDetailAction(res.data.content);
         dispatch(action);

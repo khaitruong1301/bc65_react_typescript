@@ -1,7 +1,7 @@
 import React from 'react'
 import { ProductModelType } from '../redux/reducers/productReducer'
 import { NavLink } from 'react-router-dom'
-import { RelatedProduct } from '../assets/models/ProductDetailModelType'
+import { RelatedProduct } from '../models/ProductDetailModelType'
 
 type Props = {
     product: Partial<ProductModelType>
